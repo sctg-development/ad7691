@@ -43,13 +43,13 @@ export default function IndexPage() {
     // AD8475 with -IN0.8x tied to ground (0V) and +IN0.8x = inputVoltage
     // The differential output is centered around VCOM
     // For Vin=2.5V → VDiff=0 (midscale), we need to offset the signal
-    
+
     // Calculate AD8475 differential output voltage
     // VDiff_out = (Vin - 2.5V) × gain × 2.5
     // Factor adjusted to reach ±5V with gain 0.8
-    const signalOffset = inputVoltage - 2.5;
-    const diffOut = signalOffset * gain * 2.5; // Adjusted factor to reach ±5V
-    
+    const signalOffset = inputVoltage - vcom;
+    const diffOut = signalOffset * gain * vcom; // Adjusted factor to reach ±5V
+
     const outPlus = vcom + diffOut / 2;
     const outMinus = vcom - diffOut / 2;
 
@@ -66,7 +66,7 @@ export default function IndexPage() {
     // Midscale - 1 LSB → 0x3FFFF (262143)
 
     let code: number;
-    
+
     if (vDiff >= 0) {
       // Positive range: 0 to +FSR-1LSB
       const maxPositive = 0x1FFFF; // 131071
@@ -76,7 +76,7 @@ export default function IndexPage() {
       const absVDiff = Math.abs(vDiff);
       const maxCode = 0x3FFFF; // 262143
       const minCode = 0x20000; // 131072
-      
+
       if (absVDiff >= vRef) {
         code = minCode; // -FSR
       } else {
@@ -107,15 +107,15 @@ export default function IndexPage() {
     // Generate points for input voltage from 0 to 5V
     for (let v = 0; v <= 5; v += 0.1) {
       labels.push(v.toFixed(1));
-      
-      const signalOffset = v - 2.5;
-      const diffOut = signalOffset * gain * 2.5;
+
+      const signalOffset = v - vcom;
+      const diffOut = signalOffset * gain * vcom;
       const outPlus = vcom + diffOut / 2;
       const outMinus = vcom - diffOut / 2;
       const vDiff = outPlus - outMinus;
 
       let code: number;
-      
+
       if (vDiff >= 0) {
         const maxPositive = 0x1FFFF;
         code = Math.min(Math.round((vDiff / vRef) * maxPositive), maxPositive);
@@ -123,7 +123,7 @@ export default function IndexPage() {
         const absVDiff = Math.abs(vDiff);
         const maxCode = 0x3FFFF;
         const minCode = 0x20000;
-        
+
         if (absVDiff >= vRef) {
           code = minCode;
         } else {
@@ -271,7 +271,7 @@ export default function IndexPage() {
           {/* Chart */}
           <Card>
             <CardBody>
-              <Line options={chartOptions} data={chartData} />
+              <Line options={chartOptions} data={chartData} key={vcom.toString()} />
             </CardBody>
           </Card>
 
@@ -307,22 +307,22 @@ export default function IndexPage() {
                 <line x1="50" y1="140" x2="150" y2="140" stroke="#ef4444" strokeWidth="2" />
                 <circle cx="150" cy="140" r="3" fill="#ef4444" />
                 <text x="100" y="130" textAnchor="middle" fill="#ef4444" fontSize="12">-IN0.8x</text>
-                
+
                 {/* +IN0.8x */}
                 <line x1="80" y1="180" x2="150" y2="180" stroke="#10b981" strokeWidth="2" />
                 <circle cx="150" cy="180" r="3" fill="#10b981" />
                 <text x="100" y="170" textAnchor="middle" fill="#10b981" fontSize="12">+IN0.8x</text>
-                
+
                 {/* VCOM */}
                 <line x1="120" y1="220" x2="150" y2="220" stroke="#f59e0b" strokeWidth="2" />
                 <circle cx="150" cy="220" r="3" fill="#f59e0b" />
                 <text x="90" y="248" textAnchor="middle" fill="#f59e0b" fontSize="12">VCOM</text>
-                
+
                 {/* OUT+ */}
                 <line x1="270" y1="160" x2="370" y2="160" stroke="#8b5cf6" strokeWidth="2" />
                 <circle cx="270" cy="160" r="3" fill="#8b5cf6" />
                 <text x="320" y="150" textAnchor="middle" fill="#8b5cf6" fontSize="12">OUT+</text>
-                
+
                 {/* OUT- */}
                 <line x1="270" y1="240" x2="370" y2="240" stroke="#ec4899" strokeWidth="2" />
                 <circle cx="270" cy="240" r="3" fill="#ec4899" />
@@ -351,7 +351,7 @@ export default function IndexPage() {
                 <line x1="370" y1="160" x2="530" y2="160" stroke="#8b5cf6" strokeWidth="2" />
                 <circle cx="530" cy="160" r="3" fill="#8b5cf6" />
                 <text x="450" y="150" textAnchor="middle" fill="#8b5cf6" fontSize="12">IN+</text>
-                
+
                 {/* IN- */}
                 <line x1="370" y1="240" x2="530" y2="240" stroke="#ec4899" strokeWidth="2" />
                 <circle cx="530" cy="240" r="3" fill="#ec4899" />
@@ -390,7 +390,7 @@ export default function IndexPage() {
                 {/* Power Supply Lines */}
                 <line x1="150" y1="80" x2="270" y2="80" stroke="#60a5fa" strokeWidth="2" strokeDasharray="5,5" />
                 <text x="210" y="75" textAnchor="middle" fill="#60a5fa" fontSize="10">+5V</text>
-                
+
                 <line x1="530" y1="80" x2="650" y2="80" stroke="#60a5fa" strokeWidth="2" strokeDasharray="5,5" />
                 <text x="590" y="75" textAnchor="middle" fill="#60a5fa" fontSize="10">VDD: 4.9975V</text>
 
