@@ -295,7 +295,7 @@ export default function IndexPage() {
           <Card>
             <CardHeader className="flex justify-between items-center">
               <h3 className="text-lg font-semibold">Circuit Wiring Diagram</h3>
-              <Button color="primary" size="sm" onClick={downloadSVG}>
+              <Button color="primary" size="sm" onPress={downloadSVG}>
                 {t("download-svg")}
               </Button>
             </CardHeader>
