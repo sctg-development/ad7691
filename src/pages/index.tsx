@@ -309,14 +309,14 @@ export default function IndexPage() {
                 <text x="100" y="130" textAnchor="middle" fill="#ef4444" fontSize="12">-IN0.8x</text>
                 
                 {/* +IN0.8x */}
-                <line x1="50" y1="180" x2="150" y2="180" stroke="#10b981" strokeWidth="2" />
+                <line x1="80" y1="180" x2="150" y2="180" stroke="#10b981" strokeWidth="2" />
                 <circle cx="150" cy="180" r="3" fill="#10b981" />
                 <text x="100" y="170" textAnchor="middle" fill="#10b981" fontSize="12">+IN0.8x</text>
                 
                 {/* VCOM */}
-                <line x1="50" y1="220" x2="150" y2="220" stroke="#f59e0b" strokeWidth="2" />
+                <line x1="120" y1="220" x2="150" y2="220" stroke="#f59e0b" strokeWidth="2" />
                 <circle cx="150" cy="220" r="3" fill="#f59e0b" />
-                <text x="100" y="210" textAnchor="middle" fill="#f59e0b" fontSize="12">VCOM</text>
+                <text x="90" y="248" textAnchor="middle" fill="#f59e0b" fontSize="12">VCOM</text>
                 
                 {/* OUT+ */}
                 <line x1="270" y1="160" x2="370" y2="160" stroke="#8b5cf6" strokeWidth="2" />
@@ -370,12 +370,12 @@ export default function IndexPage() {
                 <text x="50" y="380" textAnchor="middle" fill="#ef4444" fontSize="14" fontWeight="bold">GND</text>
 
                 {/* Input Signal */}
-                <circle cx="50" cy="180" r="8" fill="none" stroke="#10b981" strokeWidth="2" />
-                <text x="50" y="185" textAnchor="middle" fill="#10b981" fontSize="12">Vin</text>
+                <circle cx="80" cy="180" r="8" fill="none" stroke="#10b981" strokeWidth="2" />
+                <text x="90" y="200" textAnchor="middle" fill="#10b981" fontSize="12">Vin={inputVoltage.toFixed(2)}V</text>
 
                 {/* VCOM Value Display */}
-                <rect x="20" y="205" width="60" height="30" fill="#f59e0b" fillOpacity="0.2" stroke="#f59e0b" strokeWidth="1" rx="2" />
-                <text x="50" y="225" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">
+                <rect x="60" y="205" width="60" height="30" fill="#f59e0b" fillOpacity="0.2" stroke="#f59e0b" strokeWidth="1" rx="2" />
+                <text x="90" y="225" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">
                   {vcom.toFixed(2)}V
                 </text>
 
