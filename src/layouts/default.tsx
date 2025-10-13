@@ -4,6 +4,7 @@ import { Link } from "@heroui/link";
 import { Trans, useTranslation } from "react-i18next";
 
 import { Navbar } from "@/components/navbar";
+import { siteConfig } from "@/config/site";
 export default function DefaultLayout({
   children,
 }: {
@@ -21,13 +22,13 @@ export default function DefaultLayout({
         <Link
           isExternal
           className="flex items-center gap-1 text-current"
-          href="https://heroui.com"
-          title={t("heroui-com-homepage")}
+          href={siteConfig().links.sctg}
+          title={t("site-homepage")}
         >
           <span className="text-default-600">
-            <Trans ns="base">powered-by</Trans>
+            <Trans ns="base">{t("powered-by")}</Trans>
           </span>
-          <p className="text-primary">HeroUI</p>
+          <p className="text-primary">SCTG&nbsp;</p>
         </Link>
       </footer>
     </div>

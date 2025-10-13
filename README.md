@@ -1,33 +1,107 @@
-# Vite & HeroUI Template
+# AD7691 Simulator
 
-This is a template for creating applications using Vite 6 and HeroUI (v2).
+18-bit ADC output simulator with AD8475 differential amplifier.
 
-[Try it on CodeSandbox](https://githubbox.com/sctg-development/vite-react-heroui-template)
+## Description
 
-## Star the project
+This application simulates the behavior of an AD7691 18-bit analog-to-digital converter powered by an AD8475 differential amplifier. It visualizes output values based on input voltages and the VCOM midpoint.
 
-**If you appreciate my work, please consider giving it a star! 🤩**
+## Circuit Configuration
 
-## On Github Pages ?
+### AD8475 - Differential Amplifier
+- **Fixed Gain**: 0.8
+- **Power Supply**: +5V / 0V
+- **Input -IN0.8x**: Tied to ground (0V)
+- **Input +IN0.8x**: Variable input signal (0V to 5V)
+- **VCOM**: Differential output midpoint (0V to 5V, default 2.5V)
+- **Outputs**: OUT- and OUT+ connected to AD7691
 
-Ths plugin uses our [@sctg/vite-plugin-github-pages-spa](https://github.com/sctg-development/vite-plugin-github-pages-spa) Vite 6 plugin for handling the Github Pages limitations with SPA.  
+### AD7691 - 18-bit ADC Converter
+- **VREF**: +5V (configurable)
+- **VDD**: +4.9975V (configurable)
+- **Resolution**: 18 bits
+- **Type**: Pseudo-differential
 
-## With OAuth2 authentication ?
+## Features
 
-If you are looking for a template with OAuth2 authentication, you can check out my other repository: [vite-react-heroui-auth0-template](https://github.com/sctg-development/vite-react-heroui-auth0-template)
-which is the same template with an OAuth2 authentication layer implemented via a free tier on [Auth0](https://auth0.com).
+The application provides:
+
+### Controls
+- **VCOM Slider**: Adjusts the midpoint from 0V to 5V
+- **+IN0.8x Slider**: Configures input voltage from 0V to 5V
+
+### Displayed Results
+1. Voltage at AD7691 IN- (V)
+2. Voltage at AD7691 IN+ (V)
+3. Decimal output value
+4. Hexadecimal output value
+5. 18-bit binary output value
+
+### Chart
+Graphical representation of decimal output value as a function of +IN0.8x input voltage (0V to 5V) for a given VCOM value.
+
+## AD7691 Conversion Table
+
+According to Table 8 of the datasheet (page 14) with VREF = 5V:
+
+| Code | Differential Voltage | Decimal |
+|------|----------------------|---------|
+| 0x1FFFF | +4.999962 V (FSR - 1 LSB) | 131071 |
+| 0x00001 | +38.15 µV (Midscale + 1 LSB) | 1 |
+| 0x00000 | 0 V (Midscale) | 0 |
+| 0x3FFFF | -38.15 µV (Midscale - 1 LSB) | 262143 |
+| 0x20001 | -4.999962 V (-FSR + 1 LSB) | 131073 |
+| 0x20000 | -5 V (-FSR) | 131072 |
 
 ## Technologies Used
 
 - [Vite 6](https://vitejs.dev/guide/)
 - [HeroUI](https://heroui.com)
 - [Tailwind CSS 4](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
 - [React 19](https://reactjs.org)
+- [Chart.js](https://www.chartjs.org)
 - [i18next](https://www.i18next.com)
-- [ESLint 9](https://eslint.org)
 - [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+
+## Getting Started
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+## Configuration
+
+Circuit parameters can be adjusted in `src/config/site.ts`:
+
+```typescript
+ad7691: {
+  vRef: 5,      // Reference voltage in V
+  vdd: 4.9975,  // Supply voltage in V
+},
+ad8475: {
+  plusVs: 5,    // Positive supply
+  minusVs: 0,   // Negative supply
+  gain: 0.8     // Amplifier gain
+}
+```
+
+## License
+
+Licensed under the MIT license.
 
 ## Adding a New Page
 
