@@ -38,6 +38,9 @@ jobs:
         run: |
           npx vite build --base=/${{ github.event.repository.name }}
 
+      - name: Add "lost in translation" 404 page
+        run: curl -Lo dist/404.html https://raw.githubusercontent.com/TEA-ching/404/refs/heads/main/index.html
+
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
