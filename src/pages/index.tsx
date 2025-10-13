@@ -1,8 +1,9 @@
 import { Slider } from "@heroui/slider";
 import { Chip } from "@heroui/chip";
-import { Card, CardBody } from "@heroui/card";
+import { Card, CardBody, CardHeader } from "@heroui/card";
+import { Button } from "@heroui/button";
 import { Trans, useTranslation } from "react-i18next";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -33,6 +34,7 @@ export default function IndexPage() {
   const { t } = useTranslation();
   const [vcom, setVcom] = useState(2.5);
   const [inputVoltage, setInputVoltage] = useState(2.5);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const config = siteConfig();
   const { vRef } = config.ad7691;
@@ -168,6 +170,20 @@ export default function IndexPage() {
     },
   };
 
+  const downloadSVG = () => {
+    const svgElement = svgRef.current;
+    if (svgElement) {
+      const svgString = svgElement.outerHTML;
+      const blob = new Blob([svgString], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'circuit-diagram.svg';
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+  };
+
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -277,9 +293,15 @@ export default function IndexPage() {
 
           {/* Circuit Diagram */}
           <Card>
+            <CardHeader className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold">Circuit Wiring Diagram</h3>
+              <Button color="primary" size="sm" onClick={downloadSVG}>
+                {t("download-svg")}
+              </Button>
+            </CardHeader>
             <CardBody>
-              <h3 className="text-lg font-semibold mb-4 text-center">Circuit Wiring Diagram</h3>
               <svg
+                ref={svgRef}
                 viewBox="0 0 800 400"
                 className="w-full h-auto"
                 xmlns="http://www.w3.org/2000/svg"

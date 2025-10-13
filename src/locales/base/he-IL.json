@@ -25,5 +25,6 @@
   "output-chart": "פלט לעומת מתח כניסה",
   "simulator-title": "סימולטור ADC AD7691",
   "simulator-subtitle": "ADC פסאודו-דיפרנציאלי 18 סיביות עם מגבר AD8475",
-  "powered-by": "מופעל על ידי"
+  "powered-by": "מופעל על ידי",
+  "download-svg": "הורד SVG"
 }

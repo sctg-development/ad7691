@@ -25,5 +25,6 @@
   "output-chart": "Output vs Input Voltage",
   "simulator-title": "AD7691 ADC Simulator",
   "simulator-subtitle": "18-bit pseudo-differential ADC with AD8475 amplifier",
+  "download-svg": "Download SVG",
   "powered-by": "powered by"
 }
