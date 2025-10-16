@@ -26,5 +26,6 @@
   "simulator-title": "AD7691 ADC 模拟器",
   "simulator-subtitle": "18位伪差分ADC，带AD8475放大器",
   "powered-by": "供电",
-  "download-svg": "下载 SVG"
+  "download-svg": "下载 SVG",
+  "docs": "文档"
 }

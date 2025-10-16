@@ -26,5 +26,6 @@
   "simulator-title": "Simulador ADC AD7691",
   "simulator-subtitle": "ADC pseudo-diferencial de 18 bits con amplificador AD8475",
   "powered-by": "impulsado por",
-  "download-svg": "Descargar SVG"
+  "download-svg": "Descargar SVG",
+  "docs": "Documentos"
 }

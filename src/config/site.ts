@@ -12,11 +12,19 @@ export const siteConfig = () => ({
       label: i18next.t("home"),
       href: "/",
     },
+    {
+      label: i18next.t("docs"),
+      href: "/docs",
+    },
   ],
   navMenuItems: [
     {
       label: i18next.t("home"),
       href: "/",
+    },
+    {
+      label: i18next.t("docs"),
+      href: "/docs",
     },
   ],
   links: {
